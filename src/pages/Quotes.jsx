@@ -1,41 +1,44 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { observer } from "mobx-react-lite";
 import {ButtonTab} from "../components/tabs/ButtonTab";
 import QuotesTable from "../components/quotesTable/QuotesTable";
 import useQuotesStore from "../stores/useQuotesStore";
+import {TABS_IDS} from "../consts/tabs";
 
 const Quotes = observer(() => {
   const store = useQuotesStore();
-
-  useEffect(() => {
-    store.fetchTickerA();
-  }, []);
-
-  useEffect(() => {
-    console.log(store.quotesA)
-  }, [store.quotesA]);
+  const openTab = (e) => store.setActiveTab(e.target.dataset.id);
 
   const items = [
-    { id: 'quotesA', title: 'Котировки А', content: 'йцуйцу' },
-    { id: 'quotesB', title: 'Котировки Б', content: '123123123' },
+    { id: TABS_IDS.QUOTES_A, title: 'Котировки А', data: store.quotesA?.data, fetchData: store.fetchTickerA },
+    { id: TABS_IDS.QUOTES_B, title: 'Котировки Б', data: store.quotesB?.data, fetchData: store.fetchTickerB },
   ];
 
-  const [active, setActive] = React.useState(null);
-  const openTab = (e) => setActive(e.target.dataset.id);
 
   return (
     <>
-      <h1>Котировки</h1>
+      <h1 style={{textAlign: 'center'}}>Котировки</h1>
       <div className="tab">
         {items.map((item) => (
           <ButtonTab
             key={item.id}
             item={item}
             clickTabButton={openTab}
+            fetchData={item.fetchData}
+            active={store.activeTab}
           />
         ))}
       </div>
-      {items.find(item => item.id === active) && <QuotesTable {...items.find(item => item.id === active)} />}
+      {store.activeTab ? (
+          items?.find(item => item.id === store.activeTab) &&
+            <QuotesTable
+              active={store.activeTab}
+              {...items.find(item => item.id === store.activeTab)}
+              store={store}
+            />
+        ) : (
+          <div style={{textAlign: "center"}}>Выберите котировку</div>
+      )}
     </>
   );
 });

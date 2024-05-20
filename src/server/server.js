@@ -1,14 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const https = require('https');
-const {API_V2_TICKERS, POLONIEX_API_V2_TICKERS} = require("../API/consts");
 
 const app = express();
 
 app.use(cors());
 
-app.get(API_V2_TICKERS, (req, res) => {
-  https.get(POLONIEX_API_V2_TICKERS, (apiRes) => {
+app.get('/api/v2/tickers', (req, res) => {
+  https.get('https://futures-api.poloniex.com/api/v2/tickers', (apiRes) => {
     let data = '';
 
     apiRes.on('data', (chunk) => {
