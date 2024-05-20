@@ -1,0 +1,22 @@
+.header {
+    background-color: #65598d;
+    color: white;
+    padding: 10px;
+}
+
+.nav-list {
+    list-style-type: none;
+    display: flex;
+    gap: 10px;
+}
+
+.nav-item {
+    background-color: #d34166;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.nav-item a {
+    color: white;
+    text-decoration: none;
+}
