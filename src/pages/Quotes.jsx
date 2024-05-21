@@ -4,6 +4,7 @@ import {ButtonTab} from "../components/tabs/ButtonTab";
 import QuotesTable from "../components/quotesTable/QuotesTable";
 import useQuotesStore from "../stores/useQuotesStore";
 import {TABS_IDS} from "../consts/tabs";
+import ErrorBubble from "../components/ErrorBubble/ErrorBubble";
 
 const Quotes = observer(() => {
   const store = useQuotesStore();
@@ -18,6 +19,7 @@ const Quotes = observer(() => {
   return (
     <>
       <h1 style={{textAlign: 'center'}}>Котировки</h1>
+      {store.hasError && <ErrorBubble show={store.hasError} />}
       <div className="tab">
         {items.map((item) => (
           <ButtonTab

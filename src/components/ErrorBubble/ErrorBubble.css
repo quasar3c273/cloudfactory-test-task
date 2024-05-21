@@ -1,0 +1,16 @@
+.error-bubble {
+    position: fixed;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #d34166;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    transition: top 0.5s ease-in-out;
+}
+
+.error-bubble.show {
+    top: 0;
+}
