@@ -25,3 +25,13 @@ tr:hover {
     height: 24px;
     width: 24px;
 }
+
+@keyframes update {
+    0% { background-color: transparent; }
+    50% { background-color: #fadadd; }
+    100% { background-color: transparent; }
+}
+
+.animated {
+    animation: update 1s;
+}
