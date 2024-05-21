@@ -10,6 +10,7 @@ const useQuotesStore = () => useLocalObservable(() => ({
   quotesB: null,
   activeTab: TABS_IDS.QUOTES_A,
   showLoader: false,
+  hasError: false,
   async fetchTickerA() {
     try {
       runInAction(() => {
@@ -27,9 +28,13 @@ const useQuotesStore = () => useLocalObservable(() => ({
 
       runInAction(() => {
         this.quotesA = {...data, data: firstHalf};
+        this.activeTab = TABS_IDS.QUOTES_A;
       });
     } catch (error) {
       console.error('Ошибка:', error);
+      runInAction(() => {
+        this.hasError = true;
+      });
     } finally {
       runInAction(() => {
         this.showLoader = false;
@@ -53,10 +58,14 @@ const useQuotesStore = () => useLocalObservable(() => ({
 
       runInAction(() => {
         this.quotesB = {...data, data: secondHalf};
+        this.activeTab = TABS_IDS.QUOTES_B;
         this.showLoader = false;
       });
     } catch (error) {
       console.error('Ошибка:', error);
+      runInAction(() => {
+        this.hasError = true;
+      });
     } finally {
       runInAction(() => {
         this.showLoader = false;

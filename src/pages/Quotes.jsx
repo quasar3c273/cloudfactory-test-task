@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { observer } from "mobx-react-lite";
 import {ButtonTab} from "../components/tabs/ButtonTab";
 import QuotesTable from "../components/quotesTable/QuotesTable";
@@ -14,7 +14,6 @@ const Quotes = observer(() => {
     { id: TABS_IDS.QUOTES_A, title: 'Котировки А', data: store.quotesA?.data, fetchData: store.fetchTickerA },
     { id: TABS_IDS.QUOTES_B, title: 'Котировки Б', data: store.quotesB?.data, fetchData: store.fetchTickerB },
   ];
-
 
   return (
     <>
