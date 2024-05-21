@@ -31,12 +31,12 @@ const Quotes = observer(() => {
         ))}
       </div>
       {store.activeTab ? (
-          items?.find(item => item.id === store.activeTab) &&
-            <QuotesTable
-              active={store.activeTab}
-              {...items.find(item => item.id === store.activeTab)}
-              store={store}
-            />
+        items?.find(item => item.id === store.activeTab) &&
+          <QuotesTable
+            active={store.activeTab}
+            {...items.find(item => item.id === store.activeTab)}
+            store={store}
+          />
         ) : (
           <div style={{textAlign: "center"}}>Выберите котировку</div>
       )}

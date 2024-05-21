@@ -13,7 +13,7 @@ import _1000PEPEUSDTPERP from '../../icons/1000PEPEUSDTPERP.png';
 import TRXUSDTPERP from '../../icons/TRXUSDTPERP.png';
 import APTUSDTPERP from '../../icons/APTUSDTPERP.png';
 import AVAXUSDTPERP from '../../icons/AVAXUSDTPERP.png';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import useQuotesStore from "../../stores/useQuotesStore";
 import {observer, useLocalObservable} from "mobx-react-lite";
 import Loader from "../loader/Loader";
@@ -49,6 +49,8 @@ const QuotesTable = observer(({data, fetchData, active}) => {
     },
   }));
 
+  const [prevData, setPrevData] = useState(data);
+
   useEffect(() => {
     if (modalStore.isOpen) return;
 
@@ -57,6 +59,19 @@ const QuotesTable = observer(({data, fetchData, active}) => {
 
     return () => clearInterval(intervalId);
   }, [active, modalStore.isOpen]);
+
+  // useEffect(() => {
+  //   if (JSON.stringify(prevData) !== JSON.stringify(data)) {
+  //     setPrevData(data);
+  //     const cells = document.querySelectorAll('td');
+  //     cells.forEach(cell => {
+  //       cell.classList.add('animated');
+  //       setTimeout(() => {
+  //         cell.classList.remove('animated');
+  //       }, 2000);
+  //     });
+  //   }
+  // }, [data]);
 
   return (
     <>
@@ -90,13 +105,11 @@ const QuotesTable = observer(({data, fetchData, active}) => {
             <td>{row.bestAskSize}</td>
             <td>{new Date(row.ts / 1000000).toLocaleString()}</td>
           </tr>
-          ))}
+        ))}
         </tbody>
       </table>
       {modalStore.isOpen && (
-        <Modal onClose={modalStore.closeModal} rowInfo={modalStore?.selectedRow}>
-          {/*<p>{modalStore?.selectedRow}</p>*/}
-        </Modal>
+        <Modal onClose={modalStore.closeModal} rowInfo={modalStore?.selectedRow} />
       )}
     </>
   )
